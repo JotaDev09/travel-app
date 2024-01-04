@@ -1,0 +1,41 @@
+<section class="content-app">
+  <div class="title-app">
+    <p>Where will we travel?</p>
+  </div>
+
+  <form #choicesForm="ngForm" (ngSubmit)="submitForm(choicesForm)" class="choices-content" *ngIf="showForm">
+    <span class="title">{{userName}}</span>
+    <div class="choices-person" *ngFor="let choice of choices; let i = index">
+      <div class="choice">
+        <input [type]="choice.showChoice ? 'password' : 'text'" class="choice-input" [(ngModel)]="choice.value" required
+          name="country" *ngIf="empty">
+        <mat-icon (click)="toggleVisibility(i)">
+          {{ choice.showChoice ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
+      </div>
+      <span *ngIf="!choice.value && required" class="required" (click)="showInput(i)">Field required</span>
+    </div>
+
+    <div class="button-cont">
+      <button class="button-next">Save</button>
+    </div>
+  </form>
+
+  <div *ngIf="showResults" class="results-content">
+    <div *ngFor="let quarter of quartersData">
+      <div class="match">
+        <div class="choice-info">
+          <p>Alex's choice: {{ quarter }}</p>
+        </div>
+        <button (click)="chooseWinner()">Choose Winner</button>
+      </div>
+    </div>
+    <ng-template #noQuarters>
+      <p>No quarters available</p>
+    </ng-template>
+  </div>
+
+
+
+
+</section>
